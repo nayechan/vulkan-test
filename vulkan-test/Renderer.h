@@ -8,8 +8,11 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <map>
+#include <set>
 #include <windows.h>
+#include <algorithm>
 #include "QueueFamilyIndices.h"
+#include "SwapChainSupportDetails.h"
 
 class Renderer
 {
@@ -24,12 +27,22 @@ private:
         "VK_LAYER_KHRONOS_validation"
     };
 
+    const std::vector<const char*> deviceExtensions = {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    };
+
+    std::vector<VkImage> swapChainImages;
+
     VkInstance instance;
     GLFWwindow* window;
     VkDebugUtilsMessengerEXT debugMessenger;
     VkPhysicalDevice physicalDevice;
     VkDevice device;
-    VkQueue graphicsQueue;
+    VkQueue graphicsQueue, presentQueue;
+    VkSurfaceKHR surface;
+    VkSwapchainKHR swapChain;
+    VkFormat swapChainImageFormat;
+    VkExtent2D swapChainExtent;
 
 #ifdef NDEBUG
     const bool enableValidationLayers = false;
@@ -46,16 +59,23 @@ private:
 // Init Vulkan Routine
     void createInstance();
     void setupDebugMessenger();
+    void createSurface();
     void pickPhysicalDevice();
     void createLogicalDevice();
+    void createSwapChain();
 
 // Other Functions
 
     bool checkValidationLayerSupport(); 
+    bool checkDeviceExtensionSupport(VkPhysicalDevice device);
     int rateDeviceSuitability(VkPhysicalDevice device);
-    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device); 
+    SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
 
     std::vector<const char*> getRequiredExtensions(); 
+    VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+    VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
+    VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
     static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
         VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, 
