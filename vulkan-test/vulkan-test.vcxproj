@@ -151,12 +151,22 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QueueFamilyIndices.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ShaderModuleGenerator.cpp" />
     <ClCompile Include="SwapChainSupportDetails.cpp" />
+    <ClCompile Include="Utility.cpp" />
+    <None Include="vertexShader.vert">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QueueFamilyIndices.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ShaderModuleGenerator.h" />
     <ClInclude Include="SwapChainSupportDetails.h" />
+    <ClInclude Include="Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragmentShader.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

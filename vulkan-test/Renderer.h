@@ -32,6 +32,7 @@ private:
     };
 
     std::vector<VkImage> swapChainImages;
+    std::vector<VkImageView> swapChainImageViews;
 
     VkInstance instance;
     GLFWwindow* window;
@@ -43,6 +44,13 @@ private:
     VkSwapchainKHR swapChain;
     VkFormat swapChainImageFormat;
     VkExtent2D swapChainExtent;
+    VkShaderModule vertShaderModule;
+    VkShaderModule fragShaderModule;
+    VkRenderPass renderPass;
+    VkPipelineLayout pipelineLayout;
+    VkPipeline graphicsPipeline;
+
+
 
 #ifdef NDEBUG
     const bool enableValidationLayers = false;
@@ -63,6 +71,9 @@ private:
     void pickPhysicalDevice();
     void createLogicalDevice();
     void createSwapChain();
+    void createImageViews();
+    void createGraphicsPipeline();
+    void createRenderPass();
 
 // Other Functions
 
